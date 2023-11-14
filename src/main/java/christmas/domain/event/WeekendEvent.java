@@ -3,7 +3,7 @@ package christmas.domain.event;
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
 import christmas.domain.category.Category;
-import christmas.domain.discountpolicy.FixDiscountPolicy;
+import christmas.domain.discountpolicy.DiscountPoilcy;
 import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,16 +14,16 @@ public class WeekendEvent extends Event {
     private static final int SUNDAY = DayOfWeek.SUNDAY.getValue();
     private static final int THURSDAY = DayOfWeek.THURSDAY.getValue();
     private final Category category;
-    private final FixDiscountPolicy fixDiscountPolicy;
+    private final DiscountPoilcy discountPolicy;
 
     public WeekendEvent(
             String startDate,
             String endDate,
             Category category,
-            FixDiscountPolicy fixDiscountPolicy) throws ParseException {
+            DiscountPoilcy discountPolicy) throws ParseException {
         super(startDate, endDate, EVENT_NAME);
         this.category = category;
-        this.fixDiscountPolicy = fixDiscountPolicy;
+        this.discountPolicy = discountPolicy;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class WeekendEvent extends Event {
     @Override
     Amount process(LocalDate date, Amount amount, Reservation reservation) {
         if (isEventActive(date)) {
-            int discount = fixDiscountPolicy.discount();
+            int discount = discountPolicy.discount();
             int count = reservation.countDish(category);
             return new Amount(discount * count);
         }
