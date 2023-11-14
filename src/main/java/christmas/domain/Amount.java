@@ -15,7 +15,7 @@ public class Amount {
     }
 
     public boolean isMorethan(int price) {
-        return number > price;
+        return number >= price;
     }
 
     public boolean isEqualTo(int price) {
