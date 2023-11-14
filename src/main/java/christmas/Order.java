@@ -36,4 +36,8 @@ public class Order {
     public Dish getDish() {
         return dish;
     }
+
+    public int getCount() {
+        return count;
+    }
 }

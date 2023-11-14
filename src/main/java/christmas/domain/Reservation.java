@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class Reservation {
 
-    private static final int MENU_SIZE_AT_ONCE = 20;
+    private static final int MAX_MENU_SIZE_AT_ONCE = 20;
     private Amount amount;
     private final List<Order> orders;
 
@@ -42,7 +42,11 @@ public class Reservation {
     }
 
     private void validateMenuSize(List<Order> orders) {
-        if (orders.size() > MENU_SIZE_AT_ONCE) {
+        int size = orders.stream()
+                .mapToInt(Order::getCount)
+                .sum();
+
+        if (size > MAX_MENU_SIZE_AT_ONCE) {
             throw new OverMenuSizeAtOnceException();
         }
     }
