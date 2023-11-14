@@ -1,6 +1,7 @@
 package christmas.domain.event;
 
 import christmas.domain.Amount;
+import christmas.domain.Reservation;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +30,7 @@ public class Event {
         return true;
     }
 
-    Amount process(LocalDate date, Amount amount) {
+    Amount process(LocalDate date, Amount amount, Reservation reservation) {
         return new Amount(0);
     }
 

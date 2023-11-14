@@ -5,6 +5,7 @@ import christmas.domain.category.AppetizerCategory;
 import christmas.domain.category.DessertCategory;
 import christmas.domain.category.DrinkCategory;
 import christmas.domain.category.MainCategory;
+import christmas.domain.discountpolicy.FixDiscountPolicy;
 import christmas.domain.dish.Drink;
 import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
@@ -59,6 +60,7 @@ public class AppConfig implements Config {
         public static final Event giveawayEvent = createGiveawayEvent();
         private static final String D_DAY_EVENT_END_DATE = "2023.12.25";
         public static final Event christmasDdayEvent = createChristmasDdayEvent();
+        private static final int WEEKEND_EVENT_PRICE = 2023;
         private static final AppConfig INSTANCE = new AppConfig();
         private static final Menu menu = createMenu();
         private static final Event weekendEvent = createWeekendEvent();
@@ -106,7 +108,11 @@ public class AppConfig implements Config {
 
         private static Event createWeekendEvent() {
             try {
-                return new WeekendEvent(EVENT_START_DATE, EVENT_END_DATE);
+                return new WeekendEvent(
+                        EVENT_START_DATE,
+                        EVENT_END_DATE,
+                        dessertCategory(),
+                        new FixDiscountPolicy(WEEKEND_EVENT_PRICE));
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
