@@ -1,7 +1,6 @@
 package christmas.domain.event;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.config.AppConfig;
 import christmas.domain.Amount;
@@ -9,7 +8,6 @@ import christmas.fixtures.AmountFixtures;
 import christmas.fixtures.LocalDateFixtures;
 import christmas.fixtures.ReservationFixtures;
 import java.time.LocalDate;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +48,6 @@ class SpecialEventTest {
         );
 
         //then
-        assertThat(amount.isEqualTo(1000));
+        assertThat(amount.isEqualTo(1000)).isTrue();
     }
 }
