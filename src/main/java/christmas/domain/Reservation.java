@@ -14,18 +14,20 @@ public class Reservation {
 
     private static final int MAX_MENU_SIZE_AT_ONCE = 20;
     private final List<Order> orders;
-    private Amount amount;
+    private final VisitDate visitDate;
+    private final Amount amount;
 
-    private Reservation(List<Order> orders) {
+    private Reservation(VisitDate visitDate, List<Order> orders) {
         validateDuplicate(orders);
         validateMenuSize(orders);
         validateOnlyDrinks(orders);
         this.orders = orders;
         this.amount = calAmount(orders);
+        this.visitDate = visitDate;
     }
 
-    public static Reservation from(List<Order> orders) {
-        return new Reservation(orders);
+    public static Reservation from(int date, List<Order> orders) {
+        return new Reservation(VisitDate.from(date), orders);
     }
 
     private static int countDrinkDish(List<Order> orders) {
