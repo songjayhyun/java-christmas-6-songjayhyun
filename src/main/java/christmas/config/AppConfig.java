@@ -6,6 +6,7 @@ import christmas.domain.category.DessertCategory;
 import christmas.domain.category.DrinkCategory;
 import christmas.domain.category.MainCategory;
 import christmas.domain.discountpolicy.FixDiscountPolicy;
+import christmas.domain.dish.Dish;
 import christmas.domain.dish.Drink;
 import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
@@ -14,6 +15,7 @@ import christmas.domain.event.SpecialEvent;
 import christmas.domain.event.WeekdayEvent;
 import christmas.domain.event.WeekendEvent;
 import java.text.ParseException;
+import java.util.List;
 
 public class AppConfig implements Config {
 
@@ -55,12 +57,15 @@ public class AppConfig implements Config {
 
         private static final String EVENT_START_DATE = "2023.12.01";
         private static final String EVENT_END_DATE = "2023.12.31";
-        private static final Event specialEvent = createSpecialEvent();
-        private static final Event giveawayEvent = createGiveawayEvent();
         private static final String D_DAY_EVENT_END_DATE = "2023.12.25";
         private static final Event christmasDdayEvent = createChristmasDdayEvent();
         private static final int WEEKEND_EVENT_PRICE = 2023;
         private static final int WEEKDAY_EVENT_PRICE = 2023;
+        private static final int SPECIAL_EVENT_PRICE = 1000;
+        private static final List<Integer> STAR_DAYS = List.of(3, 10, 17, 24, 25, 31);
+        private static final Event specialEvent = createSpecialEvent();
+        private static final Dish GIVEAWAY_DISH = Drink.of("샴페인", 25_000);
+        private static final Event giveawayEvent = createGiveawayEvent();
         private static final Event weekdayEvent = createWeekdayEvent();
         private static final AppConfig INSTANCE = new AppConfig();
         private static final Menu menu = createMenu();
@@ -133,7 +138,10 @@ public class AppConfig implements Config {
 
         private static Event createSpecialEvent() {
             try {
-                return new SpecialEvent(EVENT_START_DATE, EVENT_END_DATE);
+                return new SpecialEvent(EVENT_START_DATE,
+                        EVENT_END_DATE,
+                        STAR_DAYS,
+                        new FixDiscountPolicy(SPECIAL_EVENT_PRICE));
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -141,7 +149,7 @@ public class AppConfig implements Config {
 
         private static Event createGiveawayEvent() {
             try {
-                return new GiveawayEvent(EVENT_START_DATE, EVENT_END_DATE, Drink.of("샴페인", 25_000));
+                return new GiveawayEvent(EVENT_START_DATE, EVENT_END_DATE, GIVEAWAY_DISH);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

@@ -15,4 +15,12 @@ public class LocalDateFixtures {
     public static LocalDate createWeekdayDate() {
         return LocalDate.of(2023, 12, 16); // 토요일
     }
+
+    public static LocalDate createSpecialDate() {
+        return LocalDate.of(2023, 12, 3);
+    }
+
+    public static LocalDate createNotSpecialDate() {
+        return LocalDate.of(2023, 12, 5);
+    }
 }
