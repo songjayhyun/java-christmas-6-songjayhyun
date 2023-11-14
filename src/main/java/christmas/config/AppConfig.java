@@ -6,7 +6,7 @@ import christmas.domain.category.DessertCategory;
 import christmas.domain.category.DrinkCategory;
 import christmas.domain.category.MainCategory;
 import christmas.domain.dish.Drink;
-import christmas.domain.event.ChristmasDdayEvent;
+import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
 import christmas.domain.event.GiveawayEvent;
 import christmas.domain.event.SpecialEvent;
@@ -46,7 +46,7 @@ public class AppConfig implements Config {
     }
 
     @Override
-    public Event christmasDdayEvent() {
+    public Event christmasDDayEvent() {
         return LazyHolder.christmasDdayEvent;
     }
 
@@ -138,7 +138,7 @@ public class AppConfig implements Config {
 
         private static Event createChristmasDdayEvent() {
             try {
-                return new ChristmasDdayEvent(EVENT_START_DATE, D_DAY_EVENT_END_DATE);
+                return new ChristmasDDayEvent(EVENT_START_DATE, D_DAY_EVENT_END_DATE);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

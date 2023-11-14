@@ -15,6 +15,6 @@ public interface Config {
 
     Event giveawayEvent();
 
-    Event christmasDdayEvent();
+    Event christmasDDayEvent();
 
 }
