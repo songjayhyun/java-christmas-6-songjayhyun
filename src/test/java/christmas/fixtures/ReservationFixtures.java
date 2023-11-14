@@ -33,4 +33,21 @@ public class ReservationFixtures {
 
         return Reservation.from(orders);
     }
+
+    public static Reservation createReservationWithNoMain() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(Order.of("초코케이크", 1));
+        orders.add(Order.of("양송이수프", 1));
+        orders.add(Order.of("제로콜라", 1));
+
+        return Reservation.from(orders);
+    }
+
+    public static Reservation createReservationWithMains() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(Order.of("티본스테이크", 2));
+        orders.add(Order.of("크리스마스파스타", 1));
+
+        return Reservation.from(orders);
+    }
 }
