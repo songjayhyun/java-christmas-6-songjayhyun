@@ -1,24 +1,39 @@
 package christmas.domain.event;
 
+import christmas.domain.Amount;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event {
 
-    private Date startDate;
-    private Date endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
-    public Event(String start, String end) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        this.startDate = simpleDateFormat.parse(start);
-        this.endDate = simpleDateFormat.parse(end);
+    private final String name;
+
+    public Event(String start, String end, String name) throws ParseException {
+        this.startDate = parseDate(start);
+        this.endDate = parseDate(end);
+        this.name = name;
     }
 
-    boolean isEventActive(Date date) {
-        if (date.after(endDate) || date.before(startDate)) {
+    private static LocalDate parseDate(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    }
+
+    boolean isEventActive(LocalDate localDate) {
+        if (localDate.isAfter(endDate) || localDate.isBefore(startDate)) {
             return false;
         }
         return true;
+    }
+
+    Amount process(LocalDate date, Amount amount) {
+        return new Amount(0);
+    }
+
+    public String getName() {
+        return name;
     }
 }
