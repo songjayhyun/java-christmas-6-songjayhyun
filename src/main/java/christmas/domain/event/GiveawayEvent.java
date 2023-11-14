@@ -1,6 +1,7 @@
 package christmas.domain.event;
 
 import christmas.domain.Amount;
+import christmas.domain.Reservation;
 import christmas.domain.dish.Dish;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class GiveawayEvent extends Event {
     }
 
     @Override
-    Amount process(LocalDate date, Amount amount) {
+    Amount process(LocalDate date, Amount amount, Reservation reservation) {
         if (amount.isMorethan(GIVEAWAY_EVENT_MIN_PRICE)) {
             return new Amount(dish.getPrice());
         }

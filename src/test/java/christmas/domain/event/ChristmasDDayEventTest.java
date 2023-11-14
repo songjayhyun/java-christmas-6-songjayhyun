@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.config.AppConfig;
 import christmas.domain.Amount;
+import christmas.fixtures.ReservationFixtures;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +38,10 @@ class ChristmasDDayEventTest {
         Amount amount = new Amount(0);
 
         //when
-        Amount discount = christmasDDayEvent.process(localDate, amount);
+        Amount discount = christmasDDayEvent.process(
+                localDate,
+                amount,
+                ReservationFixtures.createReservation());
 
         //then
         assertThat(discount.isEqualTo(1000)).isTrue();
@@ -51,7 +55,10 @@ class ChristmasDDayEventTest {
         Amount amount = new Amount(0);
 
         //when
-        Amount discount = christmasDDayEvent.process(localDate, amount);
+        Amount discount = christmasDDayEvent.process(
+                localDate,
+                amount,
+                ReservationFixtures.createReservation());
 
         //then
         assertThat(discount.isEqualTo(1100)).isTrue();
@@ -65,7 +72,10 @@ class ChristmasDDayEventTest {
         Amount amount = new Amount(0);
 
         //when
-        Amount discount = christmasDDayEvent.process(localDate, amount);
+        Amount discount = christmasDDayEvent.process(
+                localDate,
+                amount,
+                ReservationFixtures.createReservation());
 
         //then
         assertThat(discount.isEqualTo(3400)).isTrue();
