@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.category.Category;
 import christmas.domain.dish.Dish;
 import christmas.domain.dish.Drink;
 import christmas.exception.DuplicateOrderMenuException;
@@ -7,6 +8,7 @@ import christmas.exception.NoMenuExistsException;
 import christmas.exception.OrderedOnlyDrinksException;
 import christmas.exception.OverMenuSizeAtOnceException;
 import java.util.List;
+import java.util.Optional;
 
 public class Reservation {
 
@@ -22,24 +24,8 @@ public class Reservation {
         this.amount = calAmount(orders);
     }
 
-    private Amount calAmount(List<Order> orders) {
-        int totalAmount = orders.stream()
-                .map(Order::getDish)
-                .mapToInt(Dish::getPrice)
-                .sum();
-        return new Amount(totalAmount);
-    }
-
     public static Reservation from(List<Order> orders) {
         return new Reservation(orders);
-    }
-
-    private void validateOnlyDrinks(List<Order> orders) {
-        int count = countDrinkDish(orders);
-
-        if (count == orders.size()) {
-            throw new OrderedOnlyDrinksException();
-        }
     }
 
     private static int countDrinkDish(List<Order> orders) {
@@ -54,6 +40,22 @@ public class Reservation {
             }
         }
         return count;
+    }
+
+    private Amount calAmount(List<Order> orders) {
+        int totalAmount = 0;
+        for (Order order : orders) {
+            totalAmount += order.totalAmount();
+        }
+        return new Amount(totalAmount);
+    }
+
+    private void validateOnlyDrinks(List<Order> orders) {
+        int count = countDrinkDish(orders);
+
+        if (count == orders.size()) {
+            throw new OrderedOnlyDrinksException();
+        }
     }
 
     private void validateMenuSize(List<Order> orders) {
@@ -72,4 +74,14 @@ public class Reservation {
         }
     }
 
+    public int countDish(Category category) {
+        return (int) orders.stream()
+                .map(order -> category.findDish(order.getDish()))
+                .filter(Optional::isPresent)
+                .count();
+    }
+
+    public boolean isEvenActive() {
+        return amount.isEventActive();
+    }
 }

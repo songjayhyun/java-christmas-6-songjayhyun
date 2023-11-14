@@ -1,7 +1,5 @@
 package christmas.domain;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +13,6 @@ class AmountTest {
         Amount amount = new Amount(5000);
 
         //when then
-        Assertions.assertThat(amount.isEventable()).isFalse();
+        Assertions.assertThat(amount.isEventActive()).isFalse();
     }
 }

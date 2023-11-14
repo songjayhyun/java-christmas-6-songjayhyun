@@ -38,4 +38,8 @@ public class Order {
     public int getCount() {
         return count;
     }
+
+    public int totalAmount() {
+        return dish.getPrice() * count;
+    }
 }

@@ -10,7 +10,7 @@ public class Amount {
         this.number = number;
     }
 
-    public boolean isEventable() {
+    public boolean isEventActive() {
         return number >= EVENT_APPLICABLE;
     }
 
@@ -21,4 +21,5 @@ public class Amount {
     public boolean isEqualTo(int price) {
         return number == price;
     }
+
 }
