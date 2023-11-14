@@ -7,15 +7,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class Menu {
+    private static final Menu instance = new Menu();
     List<Category> categories = new ArrayList<>();
 
-    private static final Menu instance = new Menu();
+    private Menu() {
+    }
 
     public static Menu getInstance() {
         return instance;
-    }
-
-    private Menu() {
     }
 
     public void register(Category category) {

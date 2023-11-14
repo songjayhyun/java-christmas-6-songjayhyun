@@ -1,13 +1,12 @@
 package christmas.domain;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.Order;
 import christmas.exception.DuplicateOrderMenuException;
 import christmas.exception.OverMenuSizeAtOnceException;
 import java.util.ArrayList;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +22,7 @@ class ReservationTest {
         orderList.add(order1);
         orderList.add(order2);
 
-        Assertions.assertThatThrownBy(() -> Reservation.of(orderList))
+        assertThatThrownBy(() -> Reservation.from(orderList))
                 .isInstanceOf(DuplicateOrderMenuException.class);
     }
 
@@ -37,7 +36,7 @@ class ReservationTest {
         orderList.add(order1);
         orderList.add(order2);
 
-        Assertions.assertThatThrownBy(() -> Reservation.of(orderList))
+        assertThatThrownBy(() -> Reservation.from(orderList))
                 .isInstanceOf(OrderedOnlyDrinksException.class);
     }
 
@@ -51,7 +50,7 @@ class ReservationTest {
         orderList.add(order1);
         orderList.add(order2);
 
-        Assertions.assertThatThrownBy(() -> Reservation.of(orderList))
+        assertThatThrownBy(() -> Reservation.from(orderList))
                 .isInstanceOf(OverMenuSizeAtOnceException.class);
     }
 }

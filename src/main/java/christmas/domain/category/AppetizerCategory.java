@@ -29,7 +29,7 @@ public class AppetizerCategory implements Category {
                 .map(appetizer -> (Dish) appetizer)
                 .findAny();
     }
-    
+
     @Override
     public void register(String name, int price) {
         appetizers.add(Appetizer.of(name, price));
