@@ -38,4 +38,7 @@ public class Order {
         }
     }
 
+    public Dish getDish() {
+        return dish;
+    }
 }
