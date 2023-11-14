@@ -4,7 +4,6 @@ import christmas.domain.Amount;
 import christmas.domain.Reservation;
 import christmas.domain.category.Category;
 import christmas.domain.discountpolicy.DiscountPoilcy;
-import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
@@ -20,7 +19,7 @@ public class WeekendEvent extends Event {
             String startDate,
             String endDate,
             Category category,
-            DiscountPoilcy discountPolicy) throws ParseException {
+            DiscountPoilcy discountPolicy) {
         super(startDate, endDate, EVENT_NAME);
         this.category = category;
         this.discountPolicy = discountPolicy;

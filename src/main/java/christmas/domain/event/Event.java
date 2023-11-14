@@ -2,7 +2,6 @@ package christmas.domain.event;
 
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -13,7 +12,7 @@ public class Event {
 
     private final String name;
 
-    public Event(String start, String end, String name) throws ParseException {
+    public Event(String start, String end, String name) {
         this.startDate = parseDate(start);
         this.endDate = parseDate(end);
         this.name = name;

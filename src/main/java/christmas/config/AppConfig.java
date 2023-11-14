@@ -14,7 +14,6 @@ import christmas.domain.event.GiveawayEvent;
 import christmas.domain.event.SpecialEvent;
 import christmas.domain.event.WeekdayEvent;
 import christmas.domain.event.WeekendEvent;
-import java.text.ParseException;
 import java.util.List;
 
 public class AppConfig implements Config {
@@ -113,54 +112,34 @@ public class AppConfig implements Config {
         }
 
         private static Event createWeekendEvent() {
-            try {
-                return new WeekendEvent(
-                        EVENT_START_DATE,
-                        EVENT_END_DATE,
-                        dessertCategory(),
-                        new FixDiscountPolicy(WEEKEND_EVENT_PRICE));
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            return new WeekendEvent(
+                    EVENT_START_DATE,
+                    EVENT_END_DATE,
+                    dessertCategory(),
+                    new FixDiscountPolicy(WEEKEND_EVENT_PRICE));
         }
 
         private static Event createWeekdayEvent() {
-            try {
-                return new WeekdayEvent(
-                        EVENT_START_DATE,
-                        EVENT_END_DATE,
-                        mainCategory(),
-                        new FixDiscountPolicy(WEEKDAY_EVENT_PRICE));
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            return new WeekdayEvent(
+                    EVENT_START_DATE,
+                    EVENT_END_DATE,
+                    mainCategory(),
+                    new FixDiscountPolicy(WEEKDAY_EVENT_PRICE));
         }
 
         private static Event createSpecialEvent() {
-            try {
-                return new SpecialEvent(EVENT_START_DATE,
-                        EVENT_END_DATE,
-                        STAR_DAYS,
-                        new FixDiscountPolicy(SPECIAL_EVENT_PRICE));
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            return new SpecialEvent(EVENT_START_DATE,
+                    EVENT_END_DATE,
+                    STAR_DAYS,
+                    new FixDiscountPolicy(SPECIAL_EVENT_PRICE));
         }
 
         private static Event createGiveawayEvent() {
-            try {
-                return new GiveawayEvent(EVENT_START_DATE, EVENT_END_DATE, GIVEAWAY_DISH);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            return new GiveawayEvent(EVENT_START_DATE, EVENT_END_DATE, GIVEAWAY_DISH);
         }
 
         private static Event createChristmasDdayEvent() {
-            try {
-                return new ChristmasDDayEvent(EVENT_START_DATE, D_DAY_EVENT_END_DATE);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            return new ChristmasDDayEvent(EVENT_START_DATE, D_DAY_EVENT_END_DATE);
         }
     }
 

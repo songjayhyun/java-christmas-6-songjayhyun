@@ -3,7 +3,6 @@ package christmas.domain.event;
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
 import christmas.domain.discountpolicy.DiscountPoilcy;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class SpecialEvent extends Event {
     public SpecialEvent(String start,
                         String end,
                         List<Integer> starDays,
-                        DiscountPoilcy discountPolicy) throws ParseException {
+                        DiscountPoilcy discountPolicy) {
 
         super(start, end, EVENT_NAME);
         this.starDays = starDays;

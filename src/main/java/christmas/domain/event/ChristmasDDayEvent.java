@@ -2,7 +2,6 @@ package christmas.domain.event;
 
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -14,7 +13,7 @@ public class ChristmasDDayEvent extends Event {
 
     private final LocalDate startDate = LocalDate.of(2023, 12, 1);
 
-    public ChristmasDDayEvent(String start, String end) throws ParseException {
+    public ChristmasDDayEvent(String start, String end) {
         super(start, end, EVENT_NAME);
     }
 
