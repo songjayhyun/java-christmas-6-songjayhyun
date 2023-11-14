@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.exception;
 
 import christmas.exception.ChristmasEventException;
 

@@ -1,7 +1,6 @@
-package christmas;
+package christmas.domain;
 
 import christmas.config.AppConfig;
-import christmas.domain.Menu;
 import christmas.domain.dish.Dish;
 import christmas.exception.InvalidMenuQuantityException;
 import christmas.exception.NoMenuExistsException;

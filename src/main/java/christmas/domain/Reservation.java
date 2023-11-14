@@ -1,10 +1,10 @@
 package christmas.domain;
 
-import christmas.Order;
 import christmas.domain.dish.Dish;
 import christmas.domain.dish.Drink;
 import christmas.exception.DuplicateOrderMenuException;
 import christmas.exception.NoMenuExistsException;
+import christmas.exception.OrderedOnlyDrinksException;
 import christmas.exception.OverMenuSizeAtOnceException;
 import java.util.List;
 

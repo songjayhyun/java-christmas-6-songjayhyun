@@ -2,8 +2,8 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.Order;
 import christmas.exception.DuplicateOrderMenuException;
+import christmas.exception.OrderedOnlyDrinksException;
 import christmas.exception.OverMenuSizeAtOnceException;
 import java.util.ArrayList;
 import java.util.List;
