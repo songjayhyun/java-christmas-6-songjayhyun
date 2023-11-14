@@ -5,6 +5,11 @@ import christmas.domain.category.AppetizerCategory;
 import christmas.domain.category.DessertCategory;
 import christmas.domain.category.DrinkCategory;
 import christmas.domain.category.MainCategory;
+import christmas.domain.event.ChristmasDdayEvent;
+import christmas.domain.event.GiveawayEvent;
+import christmas.domain.event.SpecialEvent;
+import christmas.domain.event.WeekdayEvent;
+import christmas.domain.event.WeekendEvent;
 
 public class AppConfig implements Config {
 
@@ -17,9 +22,39 @@ public class AppConfig implements Config {
         return LazyHolder.menu;
     }
 
+    @Override
+    public WeekendEvent weekendEvent() {
+        return LazyHolder.weekendEvent;
+    }
+
+    @Override
+    public WeekdayEvent weekdayEvent() {
+        return LazyHolder.weekdayEvent;
+    }
+
+    @Override
+    public SpecialEvent specialEvent() {
+        return LazyHolder.specialEvent;
+    }
+
+    @Override
+    public GiveawayEvent giveawayEvent() {
+        return LazyHolder.giveawayEvent;
+    }
+
+    @Override
+    public ChristmasDdayEvent christmasDdayEvent() {
+        return LazyHolder.christmasDdayEvent;
+    }
+
     private static class LazyHolder {
+        public static final WeekdayEvent weekdayEvent = createWeekdayEvent();
+        public static final SpecialEvent specialEvent = createSpecialEvent();
+        public static final GiveawayEvent giveawayEvent = createGiveawayEvent();
+        public static final ChristmasDdayEvent christmasDdayEvent = createChristmasDdayEvent();
         private static final AppConfig INSTANCE = new AppConfig();
         private static final Menu menu = createMenu();
+        private static final WeekendEvent weekendEvent = createWeekendEvent();
 
         private static Menu createMenu() {
             Menu menu = Menu.getInstance();
@@ -61,5 +96,27 @@ public class AppConfig implements Config {
             dessertCategory.register("아이스크림", 5_000);
             return dessertCategory;
         }
+
+        private static WeekendEvent createWeekendEvent() {
+            return null;
+        }
+
+        private static ChristmasDdayEvent createChristmasDdayEvent() {
+            return null;
+        }
+
+        private static WeekdayEvent createWeekdayEvent() {
+            return null;
+        }
+
+
+        private static SpecialEvent createSpecialEvent() {
+            return null;
+        }
+
+        private static GiveawayEvent createGiveawayEvent() {
+            return null;
+        }
+
     }
 }
