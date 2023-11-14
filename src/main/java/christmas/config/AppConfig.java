@@ -55,13 +55,13 @@ public class AppConfig implements Config {
 
         private static final String EVENT_START_DATE = "2023.12.01";
         private static final String EVENT_END_DATE = "2023.12.31";
-        public static final Event weekdayEvent = createWeekdayEvent();
-        public static final Event specialEvent = createSpecialEvent();
-        public static final Event giveawayEvent = createGiveawayEvent();
+        private static final Event specialEvent = createSpecialEvent();
+        private static final Event giveawayEvent = createGiveawayEvent();
         private static final String D_DAY_EVENT_END_DATE = "2023.12.25";
-        public static final Event christmasDdayEvent = createChristmasDdayEvent();
+        private static final Event christmasDdayEvent = createChristmasDdayEvent();
         private static final int WEEKEND_EVENT_PRICE = 2023;
         private static final int WEEKDAY_EVENT_PRICE = 2023;
+        private static final Event weekdayEvent = createWeekdayEvent();
         private static final AppConfig INSTANCE = new AppConfig();
         private static final Menu menu = createMenu();
         private static final Event weekendEvent = createWeekendEvent();
