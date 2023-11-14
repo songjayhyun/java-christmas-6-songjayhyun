@@ -22,7 +22,7 @@ public class AppConfig implements Config {
         private static final Menu menu = createMenu();
 
         private static Menu createMenu() {
-            Menu menu = new Menu();
+            Menu menu = Menu.getInstance();
             menu.register(appetizerCategory());
             menu.register(drinkCategory());
             menu.register(mainCategory());

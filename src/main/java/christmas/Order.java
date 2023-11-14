@@ -5,6 +5,7 @@ import christmas.domain.Menu;
 import christmas.domain.dish.Dish;
 import christmas.exception.InvalidMenuQuantityException;
 import christmas.exception.NoMenuExistsException;
+import java.util.Optional;
 
 public class Order {
 
@@ -14,7 +15,6 @@ public class Order {
 
     private Order(Dish dish, int count) {
         validateSize(count);
-        validateMenuExists(dish);
         this.dish = dish;
         this.count = count;
     }
@@ -22,19 +22,14 @@ public class Order {
     public static Order of(String name, int count) {
         AppConfig instance = AppConfig.getInstance();
         Menu menu = instance.menu();
-        Dish dish = menu.findDish(name);
+        Dish dish = menu.findDish(name)
+                .orElseThrow(NoMenuExistsException::new);
         return new Order(dish, count);
     }
 
     private void validateSize(int count) {
         if (count < MENU_SIZE) {
             throw new InvalidMenuQuantityException();
-        }
-    }
-
-    private void validateMenuExists(Dish dish) {
-        if (dish == null) {
-            throw new NoMenuExistsException();
         }
     }
 

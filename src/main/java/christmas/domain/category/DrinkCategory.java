@@ -4,6 +4,7 @@ import christmas.domain.dish.Dish;
 import christmas.domain.dish.Drink;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DrinkCategory implements Category {
 
@@ -15,11 +16,19 @@ public class DrinkCategory implements Category {
     }
 
     @Override
-    public Dish findDish(String name) {
+    public Optional<Dish> findDish(String name) {
         return drinks.stream()
                 .filter(drink -> drink.contains(name))
-                .findFirst()
-                .orElse(null);
+                .map(drink -> (Dish) drink)
+                .findAny();
+    }
+
+    @Override
+    public Optional<Dish> findDish(Dish dish) {
+        return drinks.stream()
+                .filter(drink -> drink.equals(dish))
+                .map(drink -> (Dish) drink)
+                .findAny();
     }
 
 }
