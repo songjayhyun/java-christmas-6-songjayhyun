@@ -1,6 +1,7 @@
 package christmas.domain.category;
 
 import christmas.domain.dish.Dessert;
+import christmas.domain.dish.Dish;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +15,11 @@ public class DessertCategory implements Category {
     }
 
     @Override
-    public boolean isMenuRegistered(String name) {
+    public Dish findDish(String name) {
         return desserts.stream()
-                .anyMatch(dessert -> dessert.contains(name));
+                .filter(dessert -> dessert.contains(name))
+                .findFirst()
+                .orElse(null);
     }
 
 }

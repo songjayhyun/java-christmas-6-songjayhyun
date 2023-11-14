@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.category.Category;
+import christmas.domain.dish.Dish;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,14 @@ public class Menu {
         categories.add(category);
     }
 
-    public boolean isMenuRegistered(String name) {
-        return categories.stream()
-                .anyMatch(category -> category.isMenuRegistered(name));
+    public Dish findDish(String name) {
+        for (Category category : categories) {
+            Dish dish = category.findDish(name);
+            if (dish != null) {
+                return dish;
+            }
+        }
+        return null;
     }
 
 }
