@@ -5,6 +5,7 @@ import christmas.domain.category.AppetizerCategory;
 import christmas.domain.category.DessertCategory;
 import christmas.domain.category.DrinkCategory;
 import christmas.domain.category.MainCategory;
+import christmas.domain.dish.Drink;
 import christmas.domain.event.ChristmasDdayEvent;
 import christmas.domain.event.Event;
 import christmas.domain.event.GiveawayEvent;
@@ -51,7 +52,7 @@ public class AppConfig implements Config {
 
     private static class LazyHolder {
 
-        private static final String EVENT_START_DATE = "2023.12.1";
+        private static final String EVENT_START_DATE = "2023.12.01";
         private static final String EVENT_END_DATE = "2023.12.31";
         public static final Event weekdayEvent = createWeekdayEvent();
         public static final Event specialEvent = createSpecialEvent();
@@ -129,7 +130,7 @@ public class AppConfig implements Config {
 
         private static Event createGiveawayEvent() {
             try {
-                return new GiveawayEvent(EVENT_START_DATE, EVENT_END_DATE);
+                return new GiveawayEvent(EVENT_START_DATE, EVENT_END_DATE, Drink.of("샴페인", 25_000));
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

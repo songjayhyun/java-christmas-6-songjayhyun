@@ -13,4 +13,12 @@ public class Amount {
     public boolean isEventable() {
         return number >= EVENT_APPLICABLE;
     }
+
+    public boolean isMorethan(int price) {
+        return number > price;
+    }
+
+    public boolean isEqualTo(int price) {
+        return number == price;
+    }
 }
