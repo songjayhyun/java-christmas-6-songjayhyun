@@ -1,8 +1,10 @@
 package christmas.domain.event;
 
-public class SpecialEvent implements Event {
-    @Override
-    public void process() {
+import java.text.ParseException;
 
+public class SpecialEvent extends Event {
+
+    public SpecialEvent(String start, String end) throws ParseException {
+        super(start, end);
     }
 }
