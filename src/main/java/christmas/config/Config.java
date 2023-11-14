@@ -1,24 +1,20 @@
 package christmas.config;
 
 import christmas.domain.Menu;
-import christmas.domain.event.ChristmasDdayEvent;
-import christmas.domain.event.GiveawayEvent;
-import christmas.domain.event.SpecialEvent;
-import christmas.domain.event.WeekdayEvent;
-import christmas.domain.event.WeekendEvent;
+import christmas.domain.event.Event;
 
 public interface Config {
 
     Menu menu();
 
-    WeekendEvent weekendEvent();
+    Event weekendEvent();
 
-    WeekdayEvent weekdayEvent();
+    Event weekdayEvent();
 
-    SpecialEvent specialEvent();
+    Event specialEvent();
 
-    GiveawayEvent giveawayEvent();
+    Event giveawayEvent();
 
-    ChristmasDdayEvent christmasDdayEvent();
+    Event christmasDdayEvent();
 
 }

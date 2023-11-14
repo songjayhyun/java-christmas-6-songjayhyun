@@ -5,8 +5,8 @@ import christmas.domain.category.AppetizerCategory;
 import christmas.domain.category.DessertCategory;
 import christmas.domain.category.DrinkCategory;
 import christmas.domain.category.MainCategory;
-import christmas.domain.event.ChristmasDdayEvent;
-import christmas.domain.event.GiveawayEvent;
+import christmas.domain.discountpolicy.FixDiscountPolicy;
+import christmas.domain.event.Event;
 import christmas.domain.event.SpecialEvent;
 import christmas.domain.event.WeekdayEvent;
 import christmas.domain.event.WeekendEvent;
@@ -23,38 +23,38 @@ public class AppConfig implements Config {
     }
 
     @Override
-    public WeekendEvent weekendEvent() {
+    public Event weekendEvent() {
         return LazyHolder.weekendEvent;
     }
 
     @Override
-    public WeekdayEvent weekdayEvent() {
+    public Event weekdayEvent() {
         return LazyHolder.weekdayEvent;
     }
 
     @Override
-    public SpecialEvent specialEvent() {
+    public Event specialEvent() {
         return LazyHolder.specialEvent;
     }
 
     @Override
-    public GiveawayEvent giveawayEvent() {
+    public Event giveawayEvent() {
         return LazyHolder.giveawayEvent;
     }
 
     @Override
-    public ChristmasDdayEvent christmasDdayEvent() {
+    public Event christmasDdayEvent() {
         return LazyHolder.christmasDdayEvent;
     }
 
     private static class LazyHolder {
-        public static final WeekdayEvent weekdayEvent = createWeekdayEvent();
-        public static final SpecialEvent specialEvent = createSpecialEvent();
-        public static final GiveawayEvent giveawayEvent = createGiveawayEvent();
-        public static final ChristmasDdayEvent christmasDdayEvent = createChristmasDdayEvent();
+        public static final Event weekdayEvent = createWeekdayEvent();
+        public static final Event specialEvent = createSpecialEvent();
+        public static final Event giveawayEvent = createGiveawayEvent();
+        public static final Event christmasDdayEvent = createChristmasDdayEvent();
         private static final AppConfig INSTANCE = new AppConfig();
         private static final Menu menu = createMenu();
-        private static final WeekendEvent weekendEvent = createWeekendEvent();
+        private static final Event weekendEvent = createWeekendEvent();
 
         private static Menu createMenu() {
             Menu menu = Menu.getInstance();
@@ -97,24 +97,27 @@ public class AppConfig implements Config {
             return dessertCategory;
         }
 
-        private static WeekendEvent createWeekendEvent() {
+        private static Event createWeekendEvent() {
+            return null;
+            //return new WeekendEvent(new FixDiscountPolicy());
+        }
+
+        private static Event createChristmasDdayEvent() {
             return null;
         }
 
-        private static ChristmasDdayEvent createChristmasDdayEvent() {
+        private static Event createWeekdayEvent() {
             return null;
-        }
-
-        private static WeekdayEvent createWeekdayEvent() {
-            return null;
+            //return new WeekdayEvent(new FixDiscountPolicy());
         }
 
 
-        private static SpecialEvent createSpecialEvent() {
+        private static Event createSpecialEvent() {
             return null;
+            //return new SpecialEvent(new FixDiscountPolicy());
         }
 
-        private static GiveawayEvent createGiveawayEvent() {
+        private static Event createGiveawayEvent() {
             return null;
         }
 
