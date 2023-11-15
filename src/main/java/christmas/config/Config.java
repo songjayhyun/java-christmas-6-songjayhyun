@@ -1,20 +1,15 @@
 package christmas.config;
 
+import christmas.controller.ChristmasPromotion;
 import christmas.domain.Menu;
-import christmas.domain.event.Event;
+import christmas.domain.event.Events;
 
 public interface Config {
 
+    ChristmasPromotion christmasPromotion();
+
     Menu menu();
 
-    Event weekendEvent();
-
-    Event weekdayEvent();
-
-    Event specialEvent();
-
-    Event giveawayEvent();
-
-    Event christmasDDayEvent();
+    Events events();
 
 }

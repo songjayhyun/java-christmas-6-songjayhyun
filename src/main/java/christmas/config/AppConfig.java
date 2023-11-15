@@ -1,5 +1,6 @@
 package christmas.config;
 
+import christmas.controller.ChristmasPromotion;
 import christmas.domain.Menu;
 import christmas.domain.category.AppetizerCategory;
 import christmas.domain.category.DessertCategory;
@@ -10,10 +11,17 @@ import christmas.domain.dish.Dish;
 import christmas.domain.dish.Drink;
 import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
+import christmas.domain.event.Events;
 import christmas.domain.event.GiveawayEvent;
 import christmas.domain.event.SpecialEvent;
-import christmas.domain.event.WeekendEvent;
 import christmas.domain.event.WeekdayEvent;
+import christmas.domain.event.WeekendEvent;
+import christmas.io.ConsoleReader;
+import christmas.io.ConsoleWriter;
+import christmas.service.EventService;
+import christmas.service.MenuService;
+import christmas.view.InputView;
+import christmas.view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,51 +32,57 @@ public class AppConfig implements Config {
     }
 
     @Override
+    public ChristmasPromotion christmasPromotion() {
+        return LazyHolder.christmasPromotion;
+    }
+
+    @Override
     public Menu menu() {
         return LazyHolder.menu;
     }
 
     @Override
-    public Event weekendEvent() {
-        return LazyHolder.weekendEvent;
-    }
-
-    @Override
-    public Event weekdayEvent() {
-        return LazyHolder.weekdayEvent;
-    }
-
-    @Override
-    public Event specialEvent() {
-        return LazyHolder.specialEvent;
-    }
-
-    @Override
-    public Event giveawayEvent() {
-        return LazyHolder.giveawayEvent;
-    }
-
-    @Override
-    public Event christmasDDayEvent() {
-        return LazyHolder.christmasDdayEvent;
+    public Events events() {
+        return LazyHolder.events;
     }
 
     private static class LazyHolder {
 
+        private static final AppConfig INSTANCE = new AppConfig();
         private static final String EVENT_START_DATE = "2023.12.01";
         private static final String EVENT_END_DATE = "2023.12.31";
         private static final String D_DAY_EVENT_END_DATE = "2023.12.25";
-        private static final Event christmasDdayEvent = createChristmasDdayEvent();
-        private static final int WEEKEND_EVENT_PRICE = 2023;
-        private static final int WEEKDAY_EVENT_PRICE = 2023;
-        private static final int SPECIAL_EVENT_PRICE = 1000;
-        private static final List<Integer> STAR_DAYS = List.of(3, 10, 17, 24, 25, 31);
-        private static final Event specialEvent = createSpecialEvent();
-        private static final Event giveawayEvent = createGiveawayEvent();
-        private static final Event weekdayEvent = createWeekendEvent();
-        private static final AppConfig INSTANCE = new AppConfig();
         private static final Menu menu = createMenu();
-        private static final Event weekendEvent = createWeekdayEvent();
+        public static Events events = createEvents();
+        public static ChristmasPromotion christmasPromotion = createChristmasPromotion();
+        private static final InputView inputView = createInputView();
+        private static final OutputView outputView = createOutputView();
+        private static final MenuService menuService = createMenuService();
+        private static final EventService eventService = createEventService();
+
+        private static ChristmasPromotion createChristmasPromotion() {
+            return new ChristmasPromotion(
+                    inputView,
+                    outputView,
+                    menuService,
+                    eventService);
+        }
+
+        private static InputView createInputView() {
+            return new InputView(new ConsoleReader());
+        }
+
+        private static OutputView createOutputView() {
+            return new OutputView(new ConsoleWriter());
+        }
+
+        private static MenuService createMenuService() {
+            return new MenuService(menu);
+        }
+
+        private static EventService createEventService() {
+            return new EventService(events);
+        }
 
         private static Menu createMenu() {
             Menu menu = Menu.getInstance();
@@ -77,6 +91,16 @@ public class AppConfig implements Config {
             menu.register(mainCategory());
             menu.register(dessertCategory());
             return menu;
+        }
+
+        private static Events createEvents() {
+            List<Event> events = new ArrayList<>();
+            events.add(christmasDdayEvent());
+            events.add(specialEvent());
+            events.add(weekendEvent());
+            events.add(weekdayEvent());
+            events.add(giveawayEvent());
+            return new Events(events);
         }
 
         private static AppetizerCategory appetizerCategory() {
@@ -111,36 +135,43 @@ public class AppConfig implements Config {
             return dessertCategory;
         }
 
-        private static Event createWeekdayEvent() {
-            return new WeekdayEvent(
+        private static Event weekendEvent() {
+            final int WEEKEND_EVENT_PRICE = 2023;
+
+            return new WeekendEvent(
                     EVENT_START_DATE,
                     EVENT_END_DATE,
                     dessertCategory(),
                     new FixDiscountPolicy(WEEKEND_EVENT_PRICE));
         }
 
-        private static Event createWeekendEvent() {
-            return new WeekendEvent(
+        private static Event weekdayEvent() {
+            final int WEEKDAY_EVENT_PRICE = 2023;
+
+            return new WeekdayEvent(
                     EVENT_START_DATE,
                     EVENT_END_DATE,
                     mainCategory(),
                     new FixDiscountPolicy(WEEKDAY_EVENT_PRICE));
         }
 
-        private static Event createSpecialEvent() {
+        private static Event specialEvent() {
+            final int SPECIAL_EVENT_PRICE = 1000;
+            final List<Integer> STAR_DAYS = List.of(3, 10, 17, 24, 25, 31);
+
             return new SpecialEvent(EVENT_START_DATE,
                     EVENT_END_DATE,
                     STAR_DAYS,
                     new FixDiscountPolicy(SPECIAL_EVENT_PRICE));
         }
 
-        private static Event createGiveawayEvent() {
+        private static Event giveawayEvent() {
             List<Dish> dishes = new ArrayList<>();
             dishes.add(Drink.of("샴페인", 25_000));
             return new GiveawayEvent(EVENT_START_DATE, EVENT_END_DATE, dishes);
         }
 
-        private static Event createChristmasDdayEvent() {
+        private static Event christmasDdayEvent() {
             return new ChristmasDDayEvent(EVENT_START_DATE, D_DAY_EVENT_END_DATE);
         }
     }
