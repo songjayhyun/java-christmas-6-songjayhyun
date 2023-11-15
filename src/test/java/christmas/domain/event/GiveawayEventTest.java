@@ -2,23 +2,21 @@ package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.config.AppConfig;
 import christmas.domain.Amount;
+import christmas.domain.dish.Dish;
 import christmas.fixtures.ReservationFixtures;
 import java.time.LocalDate;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class GiveawayEventTest {
 
-    private final AppConfig appConfig = AppConfig.getInstance();
-    private Event giveawayEvent;
+    private final Event giveawayEvent = new GiveawayEvent(
+            "2023.12.01",
+            "2023.12.25",
+            List.of(new Dish("샴페인", 25_000)));
 
-    @BeforeEach
-    void setUp() {
-        giveawayEvent = appConfig.giveawayEvent();
-    }
 
     @DisplayName("총 주문 금액이 12만원 이상이면 이벤트가 적용된다")
     @Test

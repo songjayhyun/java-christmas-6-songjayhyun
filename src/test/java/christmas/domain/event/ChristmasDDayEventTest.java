@@ -2,23 +2,15 @@ package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.config.AppConfig;
 import christmas.domain.Amount;
 import christmas.fixtures.ReservationFixtures;
 import java.time.LocalDate;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ChristmasDDayEventTest {
 
-    private final AppConfig appConfig = AppConfig.getInstance();
-    private Event christmasDDayEvent;
-
-    @BeforeEach
-    void setUp() {
-        christmasDDayEvent = appConfig.christmasDDayEvent();
-    }
+    private final Event christmasDDayEvent = new ChristmasDDayEvent("2023.12.01", "2023.12.25");
 
     @DisplayName("이벤트 기간에 이벤트가 적용되지 않는다.")
     @Test

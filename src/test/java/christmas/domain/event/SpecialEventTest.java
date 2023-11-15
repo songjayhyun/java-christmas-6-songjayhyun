@@ -2,20 +2,24 @@ package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.config.AppConfig;
 import christmas.domain.Amount;
+import christmas.domain.discountpolicy.FixDiscountPolicy;
 import christmas.fixtures.AmountFixtures;
 import christmas.fixtures.LocalDateFixtures;
 import christmas.fixtures.ReservationFixtures;
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class SpecialEventTest {
 
-    private final AppConfig appConfig = AppConfig.getInstance();
-    private final Event specialEvent = appConfig.specialEvent();
-
+    private final Event specialEvent = new SpecialEvent(
+            "2023.12.01",
+            "2023.12.31",
+            List.of(3, 10, 17, 24, 25, 31),
+            new FixDiscountPolicy(1000)
+    );
 
     @DisplayName("별이 있으면 할인 된다")
     @Test
