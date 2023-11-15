@@ -10,6 +10,7 @@ public class Application {
         ChristmasPromotion christmasPromotion = appConfig.christmasPromotion();
         christmasPromotion.run();
     }
+
     private static Config createConfig() {
         return AppConfig.getInstance();
     }
