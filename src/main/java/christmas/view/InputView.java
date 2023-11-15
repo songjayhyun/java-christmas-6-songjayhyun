@@ -1,9 +1,13 @@
 package christmas.view;
 
 import christmas.domain.Order;
+import christmas.domain.Reservation;
+import christmas.domain.VisitDate;
 import christmas.exception.BlankInputTextException;
 import christmas.exception.ChristmasEventException;
-import christmas.exception.NoNumericException;
+import christmas.exception.InvalidMenuPatternException;
+import christmas.exception.NoNumericDateException;
+import christmas.exception.NoNumericOrderCountException;
 import christmas.io.Reader;
 import christmas.utils.Parser;
 import java.util.List;
@@ -17,6 +21,7 @@ public class InputView {
             "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
     private static final Pattern MENU_PATTERN = Pattern.compile("[가-힣0-9,\\-]+");
+
     private static final int MENU_PATTERN_SIZE = 2;
 
 
@@ -26,19 +31,28 @@ public class InputView {
         this.reader = reader;
     }
 
-    private int getVisitDate() {
+    public Reservation getReservation() {
+        VisitDate visitDate = getVisitDate();
+
+        System.out.println(ORDER_MESSAGE);
+        return runLoop(() -> {
+            List<Order> orders = getOrders();
+            return Reservation.of(visitDate, orders);
+        });
+    }
+
+    private VisitDate getVisitDate() {
         System.out.println(DATE_MESSAGE);
 
         return runLoop(() -> {
             String input = reader.read();
             validateNumeric(input);
-            return Parser.toInt(input);
+            int date = Parser.toInt(input);
+            return VisitDate.from(date);
         });
     }
 
     private List<Order> getOrders() {
-        System.out.println(ORDER_MESSAGE);
-
         return runLoop(() -> {
             String input = reader.read();
             validateHasText(input);
@@ -52,7 +66,7 @@ public class InputView {
     private void validateOrder(List<String> menus) {
         menus.forEach(menu -> {
             List<String> orderString = Parser.toOrderString(menu);
-            validateNumeric(orderString.get(1));
+            validateOrderCountNumeric(orderString.get(1));
             validateParsedLength(orderString);
         });
     }
@@ -65,13 +79,19 @@ public class InputView {
 
     private void validateNumeric(String input) {
         if (!NUMERIC_PATTERN.matcher(input).matches()) {
-            throw new NoNumericException();
+            throw new NoNumericDateException();
+        }
+    }
+
+    private void validateOrderCountNumeric(String input) {
+        if (!NUMERIC_PATTERN.matcher(input).matches()) {
+            throw new NoNumericOrderCountException();
         }
     }
 
     private void validateMenuPattern(String input) {
         if (!MENU_PATTERN.matcher(input).matches()) {
-            throw new NoNumericException();
+            throw new InvalidMenuPatternException();
         }
     }
 

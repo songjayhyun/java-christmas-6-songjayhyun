@@ -55,17 +55,13 @@ public class AppConfig implements Config {
         private static final Menu menu = createMenu();
         public static Events events = createEvents();
         public static ChristmasPromotion christmasPromotion = createChristmasPromotion();
-        private static final InputView inputView = createInputView();
-        private static final OutputView outputView = createOutputView();
-        private static final MenuService menuService = createMenuService();
-        private static final EventService eventService = createEventService();
 
         private static ChristmasPromotion createChristmasPromotion() {
             return new ChristmasPromotion(
-                    inputView,
-                    outputView,
-                    menuService,
-                    eventService);
+                    createInputView(),
+                    createOutputView(),
+                    createMenuService(),
+                    createEventService());
         }
 
         private static InputView createInputView() {
@@ -77,7 +73,7 @@ public class AppConfig implements Config {
         }
 
         private static MenuService createMenuService() {
-            return new MenuService(menu);
+            return new MenuService(createInputView());
         }
 
         private static EventService createEventService() {

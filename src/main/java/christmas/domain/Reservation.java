@@ -26,8 +26,8 @@ public class Reservation {
         this.visitDate = visitDate;
     }
 
-    public static Reservation from(int date, List<Order> orders) {
-        return new Reservation(VisitDate.from(date), orders);
+    public static Reservation of(VisitDate date, List<Order> orders) {
+        return new Reservation(date, orders);
     }
 
     private static int countDrinkDish(List<Order> orders) {

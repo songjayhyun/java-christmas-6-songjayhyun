@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.Reservation;
 import christmas.service.EventService;
 import christmas.service.MenuService;
 import christmas.view.InputView;
@@ -23,6 +24,13 @@ public class ChristmasPromotion {
     }
 
     public void run() {
-        
+        Reservation reservation = getReservation();
+        outputView.showPreview();
     }
+
+    private Reservation getReservation() {
+        outputView.showIntro();
+        return menuService.getReservation();
+    }
+
 }
