@@ -11,7 +11,6 @@ import christmas.domain.dish.Dish;
 import christmas.domain.dish.Drink;
 import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
-import christmas.domain.event.Events;
 import christmas.domain.event.GiveawayEvent;
 import christmas.domain.event.SpecialEvent;
 import christmas.domain.event.WeekdayEvent;
@@ -41,11 +40,6 @@ public class AppConfig implements Config {
         return LazyHolder.menu;
     }
 
-    @Override
-    public Events events() {
-        return LazyHolder.events;
-    }
-
     private static class LazyHolder {
 
         private static final AppConfig INSTANCE = new AppConfig();
@@ -53,7 +47,6 @@ public class AppConfig implements Config {
         private static final String EVENT_END_DATE = "2023.12.31";
         private static final String D_DAY_EVENT_END_DATE = "2023.12.25";
         private static final Menu menu = createMenu();
-        public static Events events = createEvents();
         public static ChristmasPromotion christmasPromotion = createChristmasPromotion();
 
         private static ChristmasPromotion createChristmasPromotion() {
@@ -77,7 +70,7 @@ public class AppConfig implements Config {
         }
 
         private static EventService createEventService() {
-            return new EventService(events);
+            return new EventService(createEvents(), createOutputView());
         }
 
         private static Menu createMenu() {
@@ -89,14 +82,14 @@ public class AppConfig implements Config {
             return menu;
         }
 
-        private static Events createEvents() {
+        private static List<Event> createEvents() {
             List<Event> events = new ArrayList<>();
             events.add(christmasDdayEvent());
             events.add(specialEvent());
             events.add(weekendEvent());
             events.add(weekdayEvent());
             events.add(giveawayEvent());
-            return new Events(events);
+            return events;
         }
 
         private static AppetizerCategory appetizerCategory() {
