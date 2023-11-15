@@ -1,8 +1,8 @@
 package christmas.service;
 
 import christmas.domain.Amount;
-import christmas.domain.EventDto;
-import christmas.domain.GiveawayMenu;
+import christmas.domain.dto.EventDto;
+import christmas.domain.dto.GiveawayMenu;
 import christmas.domain.Reservation;
 import christmas.domain.VisitDate;
 import christmas.domain.event.Event;
