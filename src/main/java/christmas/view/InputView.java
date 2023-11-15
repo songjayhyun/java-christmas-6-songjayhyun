@@ -16,7 +16,7 @@ public class InputView {
     private static final String ORDER_MESSAGE =
             "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
-    private static final Pattern MENU_PATTERN = Pattern.compile("[,-]");
+    private static final Pattern MENU_PATTERN = Pattern.compile("[가-힣0-9,\\-]+");
     private static final int MENU_PATTERN_SIZE = 2;
 
 
