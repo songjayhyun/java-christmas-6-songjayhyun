@@ -21,13 +21,14 @@ public class OutputView {
     private static final String TOTAL_BENEFIT_AMOUNT_MESSAGE = addBrackets("총혜택 금액");
     private static final String FINAL_AMOUNT_MESSAGE = addBrackets("할인 후 예상 결제 금액");
     private static final String BADGE_MESSAGE = addBrackets("12월 이벤트 배지");
+    private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String ORDER_MENU = "%s %d개";
     private static final String NO_EVENT_APPLIED = "없음";
     private static final String AMOUNT = "%s원";
     private static final String DISCOUNT_AMOUNT = "%s원";
     private static final String BENEFIT_AMOUNT = "%s: -%s원";
     private final Writer writer;
-    
+
     public OutputView(Writer writer) {
         this.writer = writer;
     }
@@ -41,7 +42,7 @@ public class OutputView {
     }
 
     public void showPreview(VisitDate visitDate) {
-        writer.write(PREVIEW_MESSAGE.formatted(visitDate.getDayOfMonth()));
+        writer.write(PREVIEW_MESSAGE.formatted(visitDate.getDayOfMonth()) + LINE_SEPARATOR);
     }
 
     public void showOrder(List<Order> orders) {
@@ -50,12 +51,13 @@ public class OutputView {
             String orderMenu = ORDER_MENU.formatted(order.getDish().getName(), order.getCount());
             writer.write(orderMenu);
         }
+        writer.write(LINE_SEPARATOR);
     }
 
     public void showTotalAmountBeforeDiscount(Amount amount) {
         writer.write(TOTAL_AMOUNT_BEFORE_DISCOUNT_MESSAGE);
         String totalAmount = AMOUNT.formatted(formatNumber(amount.getNumber()));
-        writer.write(totalAmount);
+        writer.write(totalAmount + LINE_SEPARATOR);
     }
 
     public void showGiveawayMenu(List<GiveawayMenu> giveawayMenus, Amount discount) {
@@ -69,6 +71,7 @@ public class OutputView {
             String giveaway = ORDER_MENU.formatted(giveawayMenu.name(), giveawayMenu.count());
             writer.write(giveaway);
         }
+        writer.write(LINE_SEPARATOR);
     }
 
     public void showBenefitAmount(List<EventDto> eventDtos) {
@@ -84,27 +87,28 @@ public class OutputView {
                     formatNumber(eventDto.amount().getNumber()));
             writer.write(benefitAmount);
         }
+        writer.write(LINE_SEPARATOR);
     }
 
     public void showTotalBenefitAmount(Amount amount) {
         writer.write(TOTAL_BENEFIT_AMOUNT_MESSAGE);
         String totalBenefitAmount = DISCOUNT_AMOUNT.formatted(formatNumber(-amount.getNumber()));
-        writer.write(totalBenefitAmount);
+        writer.write(totalBenefitAmount + LINE_SEPARATOR);
     }
 
     public void showFinalAmount(Amount amount) {
         writer.write(FINAL_AMOUNT_MESSAGE);
         String finalAmount = AMOUNT.formatted(formatNumber((amount.getNumber())));
-        writer.write(finalAmount);
+        writer.write(finalAmount + LINE_SEPARATOR);
     }
 
     public void showBadge(Badge badge) {
         writer.write(BADGE_MESSAGE);
-        writer.write(badge.getName());
+        writer.write(badge.getName() + LINE_SEPARATOR);
     }
 
     public void showNoEventApplied() {
-        writer.write(NO_EVENT_APPLIED);
+        writer.write(NO_EVENT_APPLIED + LINE_SEPARATOR);
     }
 
     private String formatNumber(int number) {
