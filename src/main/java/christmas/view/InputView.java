@@ -6,6 +6,7 @@ import christmas.domain.VisitDate;
 import christmas.exception.BlankInputTextException;
 import christmas.exception.ChristmasEventException;
 import christmas.exception.InvalidMenuPatternException;
+import christmas.exception.InvalidParsedLengthException;
 import christmas.exception.NoNumericDateException;
 import christmas.exception.NoNumericOrderCountException;
 import christmas.io.Reader;
@@ -21,7 +22,6 @@ public class InputView {
             "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
     private static final Pattern MENU_PATTERN = Pattern.compile("[가-힣0-9,\\-]+");
-
     private static final int MENU_PATTERN_SIZE = 2;
 
 
@@ -66,14 +66,14 @@ public class InputView {
     private void validateOrder(List<String> menus) {
         menus.forEach(menu -> {
             List<String> orderString = Parser.toOrderString(menu);
-            validateOrderCountNumeric(orderString.get(1));
             validateParsedLength(orderString);
+            validateOrderCountNumeric(orderString.get(1));
         });
     }
 
     private void validateParsedLength(List<String> orderString) {
         if (orderString.size() != MENU_PATTERN_SIZE) {
-            throw new IllegalArgumentException();
+            throw new InvalidParsedLengthException();
         }
     }
 
