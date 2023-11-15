@@ -22,6 +22,20 @@ public class Amount {
         return number == price;
     }
 
+    public Amount plus(Amount amount) {
+        int plus = this.number + amount.getNumber();
+        return new Amount(plus);
+    }
+
+    public Amount minus(Amount amount) {
+        int minus = this.number - amount.getNumber();
+        return new Amount(minus);
+    }
+
+    public Badge getBadge() {
+        return Badge.from(this);
+    }
+
     public int getNumber() {
         return number;
     }
