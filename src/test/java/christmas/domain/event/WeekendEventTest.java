@@ -13,26 +13,26 @@ import org.junit.jupiter.api.Test;
 class WeekendEventTest {
 
     private final AppConfig appConfig = AppConfig.getInstance();
-    private final Event weekendEvent = appConfig.weekendEvent();
+    private final Event weekdayEvent = appConfig.weekdayEvent();
 
 
-    @DisplayName("일요일부터 목요일이라면 이벤트가 적용된다.")
+    @DisplayName("금요일부터 토요일이라면 이벤트가 적용된다.")
     @Test
     void eventActiveDuringWeekend() {
         //when
-        LocalDate weekendDate = LocalDateFixtures.createWeekendDate();
+        LocalDate weekdayDate = LocalDateFixtures.createWeekdayDate();
 
         //then
-        assertThat(weekendEvent.isEventActive(weekendDate)).isTrue();
+        assertThat(weekdayEvent.isEventActive(weekdayDate)).isTrue();
     }
 
-    @DisplayName("주문에 디저트 메뉴가 없다면 할인 대상이 안된다.")
+    @DisplayName("주문에 메인 메뉴가 없다면 할인 대상이 안된다.")
     @Test
     void noDessertNoDiscount() {
-        Amount amount = weekendEvent.process(
-                LocalDateFixtures.createWeekendDate(),
+        Amount amount = weekdayEvent.process(
+                LocalDateFixtures.createWeekdayDate(),
                 new Amount(10000),
-                ReservationFixtures.createReservationWithNoDessert()
+                ReservationFixtures.createReservationWithNoMain()
         );
         assertThat(amount.isEqualTo(0)).isTrue();
     }
@@ -40,12 +40,11 @@ class WeekendEventTest {
     @DisplayName("총 할인 금액이 다르다")
     @Test
     void checkValidDiscountAmount() {
-        Amount amount = weekendEvent.process(
-                LocalDateFixtures.createWeekendDate(),
+        Amount amount = weekdayEvent.process(
+                LocalDateFixtures.createWeekdayDate(),
                 new Amount(10000),
-                ReservationFixtures.createReservationWithDesserts()
+                ReservationFixtures.createReservationWithMains()
         );
         assertThat(amount.isEqualTo(4046)).isTrue();
     }
-
 }

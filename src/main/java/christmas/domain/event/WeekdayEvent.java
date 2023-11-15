@@ -9,17 +9,18 @@ import java.time.LocalDate;
 
 public class WeekdayEvent extends Event {
 
-    private static final String EVENT_NAME = "주말 할인";
-    private static final int FRIDAY = DayOfWeek.FRIDAY.getValue();
-    private static final int SATURDAY = DayOfWeek.SATURDAY.getValue();
+    private static final String EVENT_NAME = "평일 할인";
+    private static final int SUNDAY = DayOfWeek.SUNDAY.getValue();
+    private static final int THURSDAY = DayOfWeek.THURSDAY.getValue();
     private final Category category;
     private final DiscountPoilcy discountPolicy;
 
-    public WeekdayEvent(String start,
-                        String end,
-                        Category category,
-                        DiscountPoilcy discountPolicy) {
-        super(start, end, EVENT_NAME);
+    public WeekdayEvent(
+            String startDate,
+            String endDate,
+            Category category,
+            DiscountPoilcy discountPolicy) {
+        super(startDate, endDate, EVENT_NAME);
         this.category = category;
         this.discountPolicy = discountPolicy;
     }
@@ -28,13 +29,13 @@ public class WeekdayEvent extends Event {
     boolean isEventActive(LocalDate localDate) {
         boolean isActivePeriod = super.isEventActive(localDate);
 
-        boolean isWeekday = false;
+        boolean isWeekend = false;
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
         int day = dayOfWeek.getValue();
-        if (day >= FRIDAY || day <= SATURDAY) {
-            isWeekday = true;
+        if (day >= SUNDAY || day <= THURSDAY) {
+            isWeekend = true;
         }
-        return (isActivePeriod && isWeekday);
+        return (isActivePeriod && isWeekend);
     }
 
     @Override

@@ -12,8 +12,8 @@ import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
 import christmas.domain.event.GiveawayEvent;
 import christmas.domain.event.SpecialEvent;
-import christmas.domain.event.WeekdayEvent;
 import christmas.domain.event.WeekendEvent;
+import christmas.domain.event.WeekdayEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,10 +65,10 @@ public class AppConfig implements Config {
         private static final List<Integer> STAR_DAYS = List.of(3, 10, 17, 24, 25, 31);
         private static final Event specialEvent = createSpecialEvent();
         private static final Event giveawayEvent = createGiveawayEvent();
-        private static final Event weekdayEvent = createWeekdayEvent();
+        private static final Event weekdayEvent = createWeekendEvent();
         private static final AppConfig INSTANCE = new AppConfig();
         private static final Menu menu = createMenu();
-        private static final Event weekendEvent = createWeekendEvent();
+        private static final Event weekendEvent = createWeekdayEvent();
 
         private static Menu createMenu() {
             Menu menu = Menu.getInstance();
@@ -111,16 +111,16 @@ public class AppConfig implements Config {
             return dessertCategory;
         }
 
-        private static Event createWeekendEvent() {
-            return new WeekendEvent(
+        private static Event createWeekdayEvent() {
+            return new WeekdayEvent(
                     EVENT_START_DATE,
                     EVENT_END_DATE,
                     dessertCategory(),
                     new FixDiscountPolicy(WEEKEND_EVENT_PRICE));
         }
 
-        private static Event createWeekdayEvent() {
-            return new WeekdayEvent(
+        private static Event createWeekendEvent() {
+            return new WeekendEvent(
                     EVENT_START_DATE,
                     EVENT_END_DATE,
                     mainCategory(),
