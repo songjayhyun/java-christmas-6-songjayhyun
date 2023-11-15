@@ -1,4 +1,4 @@
-package christmas.view;
+package christmas.io;
 
 public class ConsoleWriter implements Writer {
     @Override

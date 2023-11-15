@@ -1,4 +1,4 @@
-package christmas.view;
+package christmas.io;
 
 public interface Writer {
 
