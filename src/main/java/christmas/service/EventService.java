@@ -20,19 +20,13 @@ public class EventService {
         this.outputView = outputView;
     }
 
-    private static Amount calculateFinalBenefitAmount(Amount totalBenefitAmount, Amount giveawayAmount, Amount amount) {
-        totalBenefitAmount = totalBenefitAmount.minus(giveawayAmount);
-        amount = amount.minus(totalBenefitAmount);
-        return amount;
-    }
-
-    public void processEvents(Reservation reservation) {
+    public void process(Reservation reservation) {
         outputView.showOrder(reservation.getOrders());
         outputView.showTotalAmountBeforeDiscount(reservation.getAmount());
         processReservation(reservation);
     }
 
-    public void processReservation(Reservation reservation) {
+    private void processReservation(Reservation reservation) {
         VisitDate visitDate = reservation.getVisitDate();
         Amount amount = reservation.getAmount();
 
@@ -62,6 +56,10 @@ public class EventService {
 
         List<EventDto> eventDtos = new ArrayList<>();
 
+        if (!reservation.isEvenActive()) {
+            return eventDtos;
+        }
+
         for (Event event : events) {
             Amount discount = event.process(visitDate, amount, reservation);
 
@@ -70,15 +68,11 @@ public class EventService {
             }
 
             if (!discount.isZero()) {
-                handleNonZeroAmountEvent(event, discount, eventDtos);
+                eventDtos.add(new EventDto(event, discount));
             }
         }
 
         return eventDtos;
-    }
-
-    private void handleNonZeroAmountEvent(Event event, Amount discount, List<EventDto> eventDtos) {
-        eventDtos.add(new EventDto(event, discount));
     }
 
     private void handleGiveawayEvent(GiveawayEvent giveawayEvent, Amount discount) {
@@ -101,4 +95,9 @@ public class EventService {
                 .orElse(Amount.createZeroAmount());
     }
 
+    private Amount calculateFinalBenefitAmount(Amount totalBenefitAmount, Amount giveawayAmount, Amount amount) {
+        totalBenefitAmount = totalBenefitAmount.minus(giveawayAmount);
+        amount = amount.minus(totalBenefitAmount);
+        return amount;
+    }
 }

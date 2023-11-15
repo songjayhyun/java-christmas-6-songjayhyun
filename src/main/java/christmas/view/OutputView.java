@@ -62,7 +62,7 @@ public class OutputView {
 
     public void showGiveawayMenu(List<GiveawayMenu> giveawayMenus, Amount discount) {
         writer.write(GIVEAWAY_MENU_MESSAGE);
-        if (discount.isEqualTo(0)) {
+        if (discount.isZero()) {
             showNoEventApplied();
             return;
         }

@@ -75,6 +75,6 @@ class ReservationTest {
 
         //then
         assertThat(reservation.isEvenActive()).isFalse();
-
     }
+
 }
