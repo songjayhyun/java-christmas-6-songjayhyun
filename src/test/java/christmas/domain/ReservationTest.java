@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 class ReservationTest {
 
-    private final int VISIT_DATE = 4;
+    private final VisitDate VISIT_DATE = VisitDate.from(4);
 
     @DisplayName("중복 메뉴를 주문하면 예외 발생")
     @Test
@@ -27,7 +27,7 @@ class ReservationTest {
         orders.add(order2);
 
         //when then
-        assertThatThrownBy(() -> Reservation.from(VISIT_DATE, orders))
+        assertThatThrownBy(() -> Reservation.of(VISIT_DATE, orders))
                 .isInstanceOf(DuplicateOrderMenuException.class);
     }
 
@@ -43,7 +43,7 @@ class ReservationTest {
         orders.add(order2);
 
         //when then
-        assertThatThrownBy(() -> Reservation.from(VISIT_DATE, orders))
+        assertThatThrownBy(() -> Reservation.of(VISIT_DATE, orders))
                 .isInstanceOf(OrderedOnlyDrinksException.class);
     }
 
@@ -59,7 +59,7 @@ class ReservationTest {
         orders.add(order2);
 
         //when then
-        assertThatThrownBy(() -> Reservation.from(VISIT_DATE, orders))
+        assertThatThrownBy(() -> Reservation.of(VISIT_DATE, orders))
                 .isInstanceOf(OverMenuSizeAtOnceException.class);
     }
 
@@ -71,7 +71,7 @@ class ReservationTest {
         orders.add(Order.of("양송이수프", 1));
 
         //when
-        Reservation reservation = Reservation.from(VISIT_DATE, orders);
+        Reservation reservation = Reservation.of(VISIT_DATE, orders);
 
         //then
         assertThat(reservation.isEvenActive()).isFalse();

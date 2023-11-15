@@ -3,11 +3,10 @@ package christmas.domain.event;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.Amount;
+import christmas.domain.VisitDate;
 import christmas.domain.category.DessertCategory;
 import christmas.domain.discountpolicy.FixDiscountPolicy;
-import christmas.fixtures.LocalDateFixtures;
 import christmas.fixtures.ReservationFixtures;
-import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +19,8 @@ class WeekdayEventTest {
             new FixDiscountPolicy(2023)
     );
 
+    private final VisitDate VISIT_DATE = VisitDate.from(5);
+
     private DessertCategory createDessertCategory() {
         DessertCategory dessertCategory = new DessertCategory();
         dessertCategory.register("초코케이크", 15_000);
@@ -30,18 +31,14 @@ class WeekdayEventTest {
     @DisplayName("일요일부터 목요일이라면 이벤트가 적용된다.")
     @Test
     void eventActiveDuringWeekday() {
-        //when
-        LocalDate weekdayDate = LocalDateFixtures.createWeekdayDate();
-
-        //then
-        assertThat(weekdayEvent.isEventActive(weekdayDate)).isTrue();
+        assertThat(weekdayEvent.isEventActive(VISIT_DATE)).isTrue();
     }
 
     @DisplayName("주문에 디저트 메뉴가 없다면 할인 대상이 안된다.")
     @Test
     void noDessertNoDiscount() {
         Amount amount = weekdayEvent.process(
-                LocalDateFixtures.createWeekdayDate(),
+                VISIT_DATE,
                 new Amount(10000),
                 ReservationFixtures.createReservationWithNoDessert()
         );
@@ -52,7 +49,7 @@ class WeekdayEventTest {
     @Test
     void checkValidDiscountAmount() {
         Amount amount = weekdayEvent.process(
-                LocalDateFixtures.createWeekdayDate(),
+                VISIT_DATE,
                 new Amount(10000),
                 ReservationFixtures.createReservationWithDesserts()
         );

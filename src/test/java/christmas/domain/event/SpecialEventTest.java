@@ -3,16 +3,17 @@ package christmas.domain.event;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.Amount;
+import christmas.domain.VisitDate;
 import christmas.domain.discountpolicy.FixDiscountPolicy;
 import christmas.fixtures.AmountFixtures;
-import christmas.fixtures.LocalDateFixtures;
 import christmas.fixtures.ReservationFixtures;
-import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class SpecialEventTest {
+
+    private final VisitDate VISIT_DATE = VisitDate.from(4);
 
     private final Event specialEvent = new SpecialEvent(
             "2023.12.01",
@@ -24,21 +25,15 @@ class SpecialEventTest {
     @DisplayName("별이 있으면 할인 된다")
     @Test
     void isEventActive() {
-        //given
-        LocalDate specialDate = LocalDateFixtures.createSpecialDate();
-
         //when then
-        assertThat(specialEvent.isEventActive(specialDate)).isTrue();
+        assertThat(specialEvent.isEventActive(VisitDate.from(3))).isTrue();
     }
 
     @DisplayName("별이 없으면 할인이 안된다")
     @Test
     void isEventInActive() {
-        //given
-        LocalDate notSpecialDate = LocalDateFixtures.createNotSpecialDate();
-
         //when then
-        assertThat(specialEvent.isEventActive(notSpecialDate)).isFalse();
+        assertThat(specialEvent.isEventActive(VisitDate.from(16))).isFalse();
     }
 
     @DisplayName("할인 금액이 다르다")
@@ -46,7 +41,7 @@ class SpecialEventTest {
     void validTotalDiscountAmount() {
         //when
         Amount amount = specialEvent.process(
-                LocalDateFixtures.createSpecialDate(),
+                VisitDate.from(3),
                 AmountFixtures.createAmount(),
                 ReservationFixtures.createReservation()
         );

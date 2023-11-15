@@ -3,9 +3,9 @@ package christmas.domain.event;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.Amount;
+import christmas.domain.VisitDate;
 import christmas.domain.dish.Dish;
 import christmas.fixtures.ReservationFixtures;
-import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,17 +17,17 @@ class GiveawayEventTest {
             "2023.12.25",
             List.of(new Dish("샴페인", 25_000)));
 
+    private final VisitDate VISIT_DATE = VisitDate.from(4);
 
     @DisplayName("총 주문 금액이 12만원 이상이면 이벤트가 적용된다")
     @Test
     void eventActive() {
         //given
-        LocalDate localDate = LocalDate.of(2023, 12, 4);
         Amount amount = new Amount(13_0000);
 
         //when
         Amount giveawayAmount = giveawayEvent.process(
-                localDate,
+                VisitDate.from(4),
                 amount,
                 ReservationFixtures.createReservation());
 
@@ -39,12 +39,11 @@ class GiveawayEventTest {
     @Test
     void eventInActive() {
         //given
-        LocalDate localDate = LocalDate.of(2023, 12, 4);
         Amount amount = new Amount(10_0000);
 
         //when
         Amount giveawayAmount = giveawayEvent.process(
-                localDate,
+                VISIT_DATE,
                 amount,
                 ReservationFixtures.createReservation());
 
@@ -56,12 +55,11 @@ class GiveawayEventTest {
     @Test
     void differentGiveawayItem() {
         //given
-        LocalDate localDate = LocalDate.of(2023, 12, 4);
         Amount amount = new Amount(13_0000);
 
         //when
         Amount giveawayAmount = giveawayEvent.process(
-                localDate,
+                VISIT_DATE,
                 amount,
                 ReservationFixtures.createReservation());
 
@@ -69,13 +67,10 @@ class GiveawayEventTest {
         assertThat(giveawayAmount.isEqualTo(25_000)).isEqualTo(true);
     }
 
-    @DisplayName("12월 1일에서 12월 31일이 아니면 이벤트 적용이 되지 않는다.")
+    @DisplayName("12월 1일에서 12월 31일이면 이벤트 적용이 된다.")
     @Test
     void eventActiveDate() {
-        //given
-        LocalDate localDate = LocalDate.of(2023, 11, 4);
-
         //when then
-        assertThat(giveawayEvent.isEventActive(localDate)).isFalse();
+        assertThat(giveawayEvent.isEventActive(VISIT_DATE)).isTrue();
     }
 }
