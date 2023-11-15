@@ -31,7 +31,7 @@ public class WeekendEvent extends Event {
         boolean isWeekday = false;
         DayOfWeek dayOfWeek = visitDate.getDayOfWeek();
         int day = dayOfWeek.getValue();
-        if (day >= FRIDAY || day <= SATURDAY) {
+        if (day >= FRIDAY && day <= SATURDAY) {
             isWeekday = true;
         }
         return (isActivePeriod && isWeekday);

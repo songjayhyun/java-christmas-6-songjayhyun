@@ -36,4 +36,7 @@ public class Dish {
         return price;
     }
 
+    public String getName() {
+        return name;
+    }
 }

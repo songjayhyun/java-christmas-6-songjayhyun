@@ -1,7 +1,7 @@
 package christmas.domain;
 
 public enum Badge {
-    NONE("", 0),
+    NONE("없음", 0),
     SANTA("산타", 20_000),
     TREE("트리", 10_000),
     STAR("별", 5_000);

@@ -90,4 +90,12 @@ public class Reservation {
     public Amount getAmount() {
         return amount;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public VisitDate getVisitDate() {
+        return visitDate;
+    }
 }

@@ -10,6 +10,10 @@ public class Amount {
         this.number = number;
     }
 
+    public static Amount createZeroAmount() {
+        return new Amount(0);
+    }
+
     public boolean isEventActive() {
         return number >= EVENT_APPLICABLE;
     }
@@ -20,6 +24,10 @@ public class Amount {
 
     public boolean isEqualTo(int price) {
         return number == price;
+    }
+
+    public boolean isZero() {
+        return number == 0;
     }
 
     public Amount plus(Amount amount) {

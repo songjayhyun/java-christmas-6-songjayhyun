@@ -1,11 +1,14 @@
 package christmas.domain.event;
 
 import christmas.domain.Amount;
+import christmas.domain.GiveawayMenu;
 import christmas.domain.Reservation;
 import christmas.domain.VisitDate;
 import christmas.domain.dish.Dish;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GiveawayEvent extends Event {
 
@@ -33,4 +36,24 @@ public class GiveawayEvent extends Event {
     public List<Dish> getDishes() {
         return dishes;
     }
+
+    public List<GiveawayMenu> getGiveawayMenus() {
+        List<GiveawayMenu> giveawayMenus = new ArrayList<>();
+
+        Map<String, Integer> dishCounter = countDishes();
+        for (Map.Entry<String, Integer> entry : dishCounter.entrySet()) {
+            giveawayMenus.add(new GiveawayMenu(entry.getKey(), entry.getValue()));
+        }
+        return giveawayMenus;
+    }
+
+    private Map<String, Integer> countDishes() {
+        Map<String, Integer> dishCounter = new HashMap<>();
+
+        for (Dish dish : dishes) {
+            dishCounter.put(dish.getName(), dishCounter.getOrDefault(dish.getName(), 0) + 1);
+        }
+        return dishCounter;
+    }
+
 }

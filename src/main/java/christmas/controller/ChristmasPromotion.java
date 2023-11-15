@@ -25,7 +25,12 @@ public class ChristmasPromotion {
 
     public void run() {
         Reservation reservation = getReservation();
-        outputView.showPreview();
+        outputView.showPreview(reservation.getVisitDate());
+        processEvents(reservation);
+    }
+
+    private void processEvents(Reservation reservation) {
+        eventService.processEvents(reservation);
     }
 
     private Reservation getReservation() {
