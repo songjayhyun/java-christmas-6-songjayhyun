@@ -6,6 +6,7 @@ import christmas.domain.GiveawayMenu;
 import christmas.domain.Order;
 import christmas.domain.event.Event;
 import christmas.io.Writer;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class OutputView {
@@ -21,9 +22,9 @@ public class OutputView {
     private static final String BADGE_MESSAGE = addBrackets("12월 이벤트 배지");
     private static final String ORDER_MENU = "%s %d개";
     private static final String NO_EVENT_APPLIED = "없음";
-    private static final String AMOUNT = "%d원";
-    private static final String DISCOUNT_AMOUNT = "-%d원";
-    private static final String BENEFIT_AMOUNT = "%s: -%d원";
+    private static final String AMOUNT = "%s원";
+    private static final String DISCOUNT_AMOUNT = "-%s원";
+    private static final String BENEFIT_AMOUNT = "%s: -%s원";
     private final Writer writer;
 
     public OutputView(Writer writer) {
@@ -45,14 +46,14 @@ public class OutputView {
     public void showOrder(List<Order> orders) {
         writer.write(ORDER_MENU_MESSAGE);
         for (Order order : orders) {
-            String orderMenu = ORDER_MENU.formatted(order.getDish(), order.getCount());
+            String orderMenu = ORDER_MENU.formatted(order.getDish().getName(), order.getCount());
             writer.write(orderMenu);
         }
     }
 
     public void showTotalAmountBeforeDiscount(Amount amount) {
         writer.write(TOTAL_AMOUNT_BEFORE_DISCOUNT_MESSAGE);
-        String totalAmount = AMOUNT.formatted(amount.getNumber());
+        String totalAmount = AMOUNT.formatted(formatNumber(amount.getNumber()));
         writer.write(totalAmount);
     }
 
@@ -66,19 +67,19 @@ public class OutputView {
 
     public void showBenefitAmount(Event event, Amount amount) {
         writer.write(BENEFIT_AMOUNT_MESSAGE);
-        String benefitAmount = BENEFIT_AMOUNT.formatted(event.getName(), amount.getNumber());
+        String benefitAmount = BENEFIT_AMOUNT.formatted(event.getName(), formatNumber(amount.getNumber()));
         writer.write(benefitAmount);
     }
 
     public void showTotalBenefitAmount(Amount amount) {
         writer.write(TOTAL_BENEFIT_AMOUNT_MESSAGE);
-        String totalBenefitAmount = DISCOUNT_AMOUNT.formatted(amount.getNumber());
+        String totalBenefitAmount = DISCOUNT_AMOUNT.formatted(formatNumber(amount.getNumber()));
         writer.write(totalBenefitAmount);
     }
 
     public void showFinalAmount(Amount amount) {
         writer.write(FINAL_AMOUNT_MESSAGE);
-        String finalAmount = AMOUNT.formatted(amount.getNumber());
+        String finalAmount = AMOUNT.formatted(formatNumber((amount.getNumber())));
         writer.write(finalAmount);
     }
 
@@ -89,5 +90,10 @@ public class OutputView {
 
     public void showNoEventApplied() {
         writer.write(NO_EVENT_APPLIED);
+    }
+
+    private static String formatNumber(int number) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(number);
     }
 }
