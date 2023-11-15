@@ -18,7 +18,7 @@ public class GiveawayEvent extends Event {
     }
 
     @Override
-    Amount process(LocalDate date, Amount amount, Reservation reservation) {
+    public Amount process(LocalDate date, Amount amount, Reservation reservation) {
         if (amount.isMoreThan(GIVEAWAY_EVENT_MIN_PRICE)) {
             int totalPrice = 0;
             for (Dish dish : dishes) {

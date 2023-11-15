@@ -2,6 +2,7 @@ package christmas.domain.event;
 
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
+import christmas.domain.VisitDate;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -22,14 +23,14 @@ public class Event {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
 
-    boolean isEventActive(LocalDate localDate) {
-        if (localDate.isAfter(endDate) || localDate.isBefore(startDate)) {
+    public boolean isEventActive(VisitDate visitDate) {
+        if (visitDate.isAfter(endDate) || visitDate.isBefore(startDate)) {
             return false;
         }
         return true;
     }
 
-    Amount process(LocalDate date, Amount amount, Reservation reservation) {
+    public Amount process(VisitDate date, Amount amount, Reservation reservation) {
         return new Amount(0);
     }
 

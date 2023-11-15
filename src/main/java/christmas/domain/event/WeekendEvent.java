@@ -2,10 +2,10 @@ package christmas.domain.event;
 
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
+import christmas.domain.VisitDate;
 import christmas.domain.category.Category;
 import christmas.domain.discountpolicy.DiscountPoilcy;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 
 public class WeekendEvent extends Event {
 
@@ -25,11 +25,11 @@ public class WeekendEvent extends Event {
     }
 
     @Override
-    boolean isEventActive(LocalDate localDate) {
-        boolean isActivePeriod = super.isEventActive(localDate);
+    public boolean isEventActive(VisitDate visitDate) {
+        boolean isActivePeriod = super.isEventActive(visitDate);
 
         boolean isWeekday = false;
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        DayOfWeek dayOfWeek = visitDate.getDayOfWeek();
         int day = dayOfWeek.getValue();
         if (day >= FRIDAY || day <= SATURDAY) {
             isWeekday = true;
@@ -38,7 +38,7 @@ public class WeekendEvent extends Event {
     }
 
     @Override
-    Amount process(LocalDate date, Amount amount, Reservation reservation) {
+    public Amount process(VisitDate date, Amount amount, Reservation reservation) {
         if (isEventActive(date)) {
             int discount = discountPolicy.discount();
             int count = reservation.countDish(category);

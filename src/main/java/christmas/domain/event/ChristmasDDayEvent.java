@@ -2,8 +2,8 @@ package christmas.domain.event;
 
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
+import christmas.domain.VisitDate;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public class ChristmasDDayEvent extends Event {
 
@@ -18,9 +18,9 @@ public class ChristmasDDayEvent extends Event {
     }
 
     @Override
-    Amount process(LocalDate date, Amount amount, Reservation reservation) {
+    public Amount process(VisitDate date, Amount amount, Reservation reservation) {
         if (isEventActive(date)) {
-            int days = (int) ChronoUnit.DAYS.between(startDate, date);
+            int days = date.getBetweenDays(startDate);
             int totalAmount = START_AMOUNT + (days * DAY_INCREASE_AMOUNT);
             return new Amount(totalAmount);
         }

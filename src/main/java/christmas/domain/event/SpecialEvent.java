@@ -2,8 +2,8 @@ package christmas.domain.event;
 
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
+import christmas.domain.VisitDate;
 import christmas.domain.discountpolicy.DiscountPoilcy;
-import java.time.LocalDate;
 import java.util.List;
 
 public class SpecialEvent extends Event {
@@ -23,17 +23,17 @@ public class SpecialEvent extends Event {
     }
 
     @Override
-    boolean isEventActive(LocalDate localDate) {
-        boolean isActivePeriod = super.isEventActive(localDate);
+    public boolean isEventActive(VisitDate visitDate) {
+        boolean isActivePeriod = super.isEventActive(visitDate);
 
         boolean isStarDay = starDays.stream()
-                .anyMatch(day -> day.equals(localDate.getDayOfMonth()));
+                .anyMatch(day -> day.equals(visitDate.getDayOfMonth()));
 
         return (isActivePeriod && isStarDay);
     }
 
     @Override
-    Amount process(LocalDate date, Amount amount, Reservation reservation) {
+    public Amount process(VisitDate date, Amount amount, Reservation reservation) {
         if (isEventActive(date)) {
             int discount = discountPolicy.discount();
             return new Amount(discount);
