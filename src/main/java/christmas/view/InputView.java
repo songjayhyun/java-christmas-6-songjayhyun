@@ -12,6 +12,9 @@ import java.util.regex.Pattern;
 
 public class InputView {
 
+    private static final String DATE_MESSAGE = "12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
+    private static final String ORDER_MESSAGE =
+            "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
     private static final Pattern MENU_PATTERN = Pattern.compile("[,-]");
     private static final int MENU_PATTERN_SIZE = 2;
@@ -24,6 +27,8 @@ public class InputView {
     }
 
     private int getVisitDate() {
+        System.out.println(DATE_MESSAGE);
+
         return runLoop(() -> {
             String input = reader.read();
             validateNumeric(input);
@@ -32,6 +37,8 @@ public class InputView {
     }
 
     private List<Order> getOrders() {
+        System.out.println(ORDER_MESSAGE);
+
         return runLoop(() -> {
             String input = reader.read();
             validateHasText(input);
