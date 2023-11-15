@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.domain.Amount;
 import christmas.domain.Badge;
+import christmas.domain.GiveawayMenu;
 import christmas.domain.Order;
 import christmas.domain.event.Event;
 import christmas.io.Writer;
@@ -55,8 +56,12 @@ public class OutputView {
         writer.write(totalAmount);
     }
 
-    public void showGiveawayMenu() {
+    public void showGiveawayMenu(List<GiveawayMenu> giveawayMenus) {
         writer.write(GIVEAWAY_MENU_MESSAGE);
+        for (GiveawayMenu giveawayMenu : giveawayMenus) {
+            String giveaway = ORDER_MENU.formatted(giveawayMenu.name(), giveawayMenu.count());
+            writer.write(giveaway);
+        }
     }
 
     public void showBenefitAmount(Event event, Amount amount) {
