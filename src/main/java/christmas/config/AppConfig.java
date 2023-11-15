@@ -51,7 +51,6 @@ public class AppConfig implements Config {
 
         private static ChristmasPromotion createChristmasPromotion() {
             return new ChristmasPromotion(
-                    createInputView(),
                     createOutputView(),
                     createMenuService(),
                     createEventService());
