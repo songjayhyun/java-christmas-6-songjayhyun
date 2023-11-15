@@ -2,7 +2,6 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.domain.Order;
 import christmas.exception.NoMenuExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

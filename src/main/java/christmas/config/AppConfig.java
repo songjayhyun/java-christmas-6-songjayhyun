@@ -42,12 +42,12 @@ public class AppConfig implements Config {
 
     private static class LazyHolder {
 
+        public static final ChristmasPromotion christmasPromotion = createChristmasPromotion();
         private static final AppConfig INSTANCE = new AppConfig();
         private static final String EVENT_START_DATE = "2023.12.01";
         private static final String EVENT_END_DATE = "2023.12.31";
         private static final String D_DAY_EVENT_END_DATE = "2023.12.25";
         private static final Menu menu = createMenu();
-        public static final ChristmasPromotion christmasPromotion = createChristmasPromotion();
 
         private static ChristmasPromotion createChristmasPromotion() {
             return new ChristmasPromotion(

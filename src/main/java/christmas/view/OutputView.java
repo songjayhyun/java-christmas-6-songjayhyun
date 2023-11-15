@@ -2,10 +2,10 @@ package christmas.view;
 
 import christmas.domain.Amount;
 import christmas.domain.Badge;
-import christmas.domain.dto.EventDto;
-import christmas.domain.dto.GiveawayMenu;
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
+import christmas.domain.dto.EventDto;
+import christmas.domain.dto.GiveawayMenu;
 import christmas.io.Writer;
 import java.text.DecimalFormat;
 import java.util.List;
