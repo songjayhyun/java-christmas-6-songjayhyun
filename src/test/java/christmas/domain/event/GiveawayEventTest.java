@@ -28,7 +28,10 @@ class GiveawayEventTest {
         Amount amount = new Amount(13_0000);
 
         //when
-        Amount giveawayAmount = giveawayEvent.process(localDate, amount, ReservationFixtures.createReservation());
+        Amount giveawayAmount = giveawayEvent.process(
+                localDate,
+                amount,
+                ReservationFixtures.createReservation());
 
         //then
         assertThat(giveawayAmount.isEqualTo(25_000)).isEqualTo(true);
@@ -42,7 +45,10 @@ class GiveawayEventTest {
         Amount amount = new Amount(10_0000);
 
         //when
-        Amount giveawayAmount = giveawayEvent.process(localDate, amount, ReservationFixtures.createReservation());
+        Amount giveawayAmount = giveawayEvent.process(
+                localDate,
+                amount,
+                ReservationFixtures.createReservation());
 
         //then
         assertThat(giveawayAmount.isEqualTo(25_000)).isEqualTo(false);
@@ -51,10 +57,18 @@ class GiveawayEventTest {
     @DisplayName("증정 아이템은 샴페인이어야 한다.")
     @Test
     void differentGiveawayItem() {
-        //when then
-        if (giveawayEvent instanceof GiveawayEvent giveawayEvent1) {
-            assertThat(giveawayEvent1.getDish().getPrice()).isEqualTo(25_000);
-        }
+        //given
+        LocalDate localDate = LocalDate.of(2023, 12, 4);
+        Amount amount = new Amount(13_0000);
+
+        //when
+        Amount giveawayAmount = giveawayEvent.process(
+                localDate,
+                amount,
+                ReservationFixtures.createReservation());
+
+        //then
+        assertThat(giveawayAmount.isEqualTo(25_000)).isEqualTo(true);
     }
 
     @DisplayName("12월 1일에서 12월 31일이 아니면 이벤트 적용이 되지 않는다.")
