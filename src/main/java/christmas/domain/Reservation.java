@@ -86,4 +86,8 @@ public class Reservation {
     public boolean isEvenActive() {
         return amount.isEventActive();
     }
+
+    public Amount getAmount() {
+        return amount;
+    }
 }

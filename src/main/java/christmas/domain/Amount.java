@@ -14,12 +14,16 @@ public class Amount {
         return number >= EVENT_APPLICABLE;
     }
 
-    public boolean isMorethan(int price) {
+    public boolean isMoreThan(int price) {
         return number >= price;
     }
 
     public boolean isEqualTo(int price) {
         return number == price;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
 }

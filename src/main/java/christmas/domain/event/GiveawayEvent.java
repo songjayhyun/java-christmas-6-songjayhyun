@@ -18,7 +18,7 @@ public class GiveawayEvent extends Event {
 
     @Override
     Amount process(LocalDate date, Amount amount, Reservation reservation) {
-        if (amount.isMorethan(GIVEAWAY_EVENT_MIN_PRICE)) {
+        if (amount.isMoreThan(GIVEAWAY_EVENT_MIN_PRICE)) {
             return new Amount(dish.getPrice());
         }
         return new Amount(0);
