@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class Menu {
     private static final Menu instance = new Menu();
-    List<Category> categories = new ArrayList<>();
+    final List<Category> categories = new ArrayList<>();
 
     private Menu() {
     }
