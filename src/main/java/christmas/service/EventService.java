@@ -69,7 +69,7 @@ public class EventService {
                 handleGiveawayEvent(giveawayEvent, discount);
             }
 
-            if (discount.isZero()) {
+            if (!discount.isZero()) {
                 handleNonZeroAmountEvent(event, discount, eventDtos);
             }
         }
