@@ -2,6 +2,7 @@ package christmas.domain.event;
 
 import christmas.domain.Amount;
 import christmas.domain.Reservation;
+import christmas.domain.VisitDate;
 import christmas.domain.dish.Dish;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +19,7 @@ public class GiveawayEvent extends Event {
     }
 
     @Override
-    public Amount process(LocalDate date, Amount amount, Reservation reservation) {
+    public Amount process(VisitDate date, Amount amount, Reservation reservation) {
         if (amount.isMoreThan(GIVEAWAY_EVENT_MIN_PRICE)) {
             int totalPrice = 0;
             for (Dish dish : dishes) {
